@@ -282,6 +282,56 @@ zip -r vtiger7.zip vtiger7
 sudo cp vtiger7.zip /var/www/html/vtigercrm
 ```
 
+### Install another copy at a different TCP port
+
+NEW:
+username: new
+DB: newdb
+Password: New company
+Directory: newvtiger
+
+```sql
+sudo mysql 
+MariaDB [(none)]> CREATE DATABASE newdb;
+MariaDB [(none)]> CREATE USER 'new'@'localhost' IDENTIFIED BY 'password';
+
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON newdb.* TO 'new'@'localhost' WITH GRANT OPTION;
+
+MariaDB [(none)]> ALTER DATABASE newdb CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+MariaDB [(none)]> FLUSH PRIVILEGES;
+MariaDB [(none)]> exit
+```
+
+```sh
+sudo nano /etc/apache2/sites-available/newvtiger.conf
+
+Listen 8080
+<VirtualHost *:8080>
+     ServerAdmin XXX@jv-tech.com
+     ServerName XXX.jv-tech.com
+     DocumentRoot /var/www/html/newvtiger/
+
+     <Directory /var/www/html/newvtiger/>
+        Options FollowSymlinks
+        AllowOverride All
+        Require all granted
+     </Directory>
+
+     ErrorLog /var/log/apache2/newvtiger_error.log
+     CustomLog /var/log/apache2/newvtiger_access.log combined
+</VirtualHost>
+
+
+sudo a2ensite nevtiger
+
+sudo systemctl restart apache2
+systemctl status apache2
+
+# Check open TCP ports
+netstat -atn
+```
+
 ## Further Improvements to Default Installation
 
 ### Install PDF Maker Free

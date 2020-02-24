@@ -282,7 +282,7 @@ zip -r vtiger7.zip vtiger7
 sudo cp vtiger7.zip /var/www/html/vtigercrm
 ```
 
-## Further Improvements
+## Further Improvements to Default Installation
 
 ### Install PDF Maker Free
 
@@ -295,8 +295,8 @@ Download for: vtiger CRM Open Source 7.1
 
 Update: libraries/tcpdf
 
-- Delete 7.1
-- Copy everything from 6.3 to 7.1
+- Delete tcpdf from 7.1
+- Copy everything from lates tcpdf 5.x to vtiger 7.1
 - Update File permissions
 
 ```sh
@@ -307,7 +307,7 @@ sudo chown -R www-data:www-data /var/www/html/vtigercrm
 sudo chmod -R 755 /var/www/html/vtigercrm
 ```
 
-## Extensions to add (Paid)
+### Extensions to add (Paid)
 
 Consider buying these extensions as they are very useful from vendor <https://it-solutions4you.com/>
 
